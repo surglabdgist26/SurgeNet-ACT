@@ -99,7 +99,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
 <section id="teaser">
   <figure>
     <video controls muted playsinline preload="metadata" poster="static/images/qualitative_compare_v2.jpg">
-      <source src="static/videos/compare_2_needle_throw_20260828-154118_sh_t10.mp4" type="video/mp4">
+      <source src="static/videos/sessionA_2_needle_throw.mp4" type="video/mp4">
     </video>
     <figcaption>Needle throw on a dVRK-Sessions session never seen in training. Both policies are run frame by frame through their inference code on the same recording: demonstrated chunk (blue), baseline ACT (orange) and SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the offset of the new session; SurgeNet-ACT starts on the measured pose and follows the motion.</figcaption>
   </figure>
@@ -166,25 +166,60 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
 <section id="videos">
   <h2>Videos</h2>
   <p>Baseline ACT and the deployed SurgeNet-ACT policy run frame by frame on held-out recordings. Left: camera view with the demonstrated chunk (blue), baseline (orange) and ours (green). Right: position error over time for both arms.</p>
+  <h3>dVRK-Sessions Benchmark: all six validation demonstrations (two sessions never seen in training)</h3>
   <div class="videostack">
     <figure>
-      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_1_needle_pickup_20260828-154118_sh_t10_short.mp4" type="video/mp4"></video>
-      <figcaption>dVRK-Sessions, unseen session: needle pickup.</figcaption>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/sessionA_1_needle_pickup.mp4" type="video/mp4"></video>
+      <figcaption>Unseen session A: needle pickup.</figcaption>
     </figure>
     <figure>
-      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_3_knot_tying_20260828-154118_sh_t10.mp4" type="video/mp4"></video>
-      <figcaption>dVRK-Sessions, unseen session: knot tying.</figcaption>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/sessionA_2_needle_throw.mp4" type="video/mp4"></video>
+      <figcaption>Unseen session A: needle throw.</figcaption>
     </figure>
     <figure>
-      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_2_needle_throw_20260828-154118_sh_t10.mp4" type="video/mp4"></video>
-      <figcaption>dVRK-Sessions, unseen session: needle throw.</figcaption>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/sessionA_3_knot_tying.mp4" type="video/mp4"></video>
+      <figcaption>Unseen session A: knot tying.</figcaption>
     </figure>
     <figure>
-      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_2_needle_throw_20250428-222529-428484.mp4" type="video/mp4"></video>
-      <figcaption>SutureBot, held-out tissue: needle throw.</figcaption>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/sessionB_1_needle_pickup.mp4" type="video/mp4"></video>
+      <figcaption>Unseen session B, recorded after the endoscope was moved: needle pickup.</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/sessionB_2_needle_throw.mp4" type="video/mp4"></video>
+      <figcaption>Unseen session B: needle throw.</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/sessionB_3_knot_tying.mp4" type="video/mp4"></video>
+      <figcaption>Unseen session B: knot tying.</figcaption>
     </figure>
   </div>
-  <p class="small">Videos of all six held-out dVRK-Sessions demonstrations will be added with the full release.</p>
+  <h3>SutureBot Benchmark: held-out tissue sample 10 (two demonstrations per core phase)</h3>
+  <div class="videostack">
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/suturebot_compare_1_needle_pickup_20250428-223900-225949.mp4" type="video/mp4"></video>
+      <figcaption>Held-out tissue: needle pickup (demonstration 1).</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/suturebot_compare_1_needle_pickup_20250430-100109-415297.mp4" type="video/mp4"></video>
+      <figcaption>Held-out tissue: needle pickup (demonstration 2).</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/suturebot_compare_2_needle_throw_20250428-222529-428484.mp4" type="video/mp4"></video>
+      <figcaption>Held-out tissue: needle throw (demonstration 1).</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/suturebot_compare_2_needle_throw_20250430-100535-002019.mp4" type="video/mp4"></video>
+      <figcaption>Held-out tissue: needle throw (demonstration 2).</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/suturebot_compare_3_knot_tying_20250428-215115-615046.mp4" type="video/mp4"></video>
+      <figcaption>Held-out tissue: knot tying (demonstration 1).</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/suturebot_compare_3_knot_tying_20250430-095612-306328.mp4" type="video/mp4"></video>
+      <figcaption>Held-out tissue: knot tying (demonstration 2).</figcaption>
+    </figure>
+  </div>
 </section>
 
 <section id="dataset">
