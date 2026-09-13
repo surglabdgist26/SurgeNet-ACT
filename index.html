@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>SurgeNet-ACT: A Foundation-Model Framework and Benchmark for Autonomous dVRK Suturing</title>
-<meta name="description" content="SurgeNet-ACT: frozen surgical foundation encoder + ACT policy with tool-frame action chunks for autonomous suturing on the dVRK, evaluated on the SutureBot and SurgLab benchmarks.">
+<meta name="description" content="SurgeNet-ACT: frozen surgical foundation encoder + ACT policy with tool-frame action chunks for autonomous suturing on the dVRK, evaluated on the SutureBot and dVRK-Sessions benchmarks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap">
 <style>
@@ -83,7 +83,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
       <a class="btn secondary" href="#videos">
         <svg viewBox="0 0 24 24"><path d="M4 5h12a2 2 0 0 1 2 2v2.4l4-2.4v10l-4-2.4V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>Videos</a>
       <a class="btn secondary" href="#dataset">
-        <svg viewBox="0 0 24 24"><path d="M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zm-8 5.5c0 1.7 3.6 3 8 3s8-1.3 8-3V11c0 1.7-3.6 3-8 3s-8-1.3-8-3zm0 5c0 1.7 3.6 3 8 3s8-1.3 8-3V16c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/></svg>Dataset sample</a>
+        <svg viewBox="0 0 24 24"><path d="M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zm-8 5.5c0 1.7 3.6 3 8 3s8-1.3 8-3V11c0 1.7-3.6 3-8 3s-8-1.3-8-3zm0 5c0 1.7 3.6 3 8 3s8-1.3 8-3V16c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/></svg>Dataset</a>
       <span class="btn soon" title="Full code release after acceptance">
         <svg viewBox="0 0 24 24"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6z"/></svg>Code <span class="tag">after acceptance</span></span>
       <span class="btn soon" title="Full dataset release after acceptance">
@@ -100,13 +100,13 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
     <video controls muted playsinline preload="metadata" poster="static/images/qualitative_compare_v2.jpg">
       <source src="static/videos/compare_2_needle_throw_20260828-154118_sh_t10.mp4" type="video/mp4">
     </video>
-    <figcaption>Needle throw on a SurgLab session never seen in training. Both policies are run frame by frame through their inference code on the same recording: demonstrated chunk (blue), baseline ACT (orange) and SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the offset of the new session; SurgeNet-ACT starts on the measured pose and follows the motion.</figcaption>
+    <figcaption>Needle throw on a dVRK-Sessions session never seen in training. Both policies are run frame by frame through their inference code on the same recording: demonstrated chunk (blue), baseline ACT (orange) and SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the offset of the new session; SurgeNet-ACT starts on the measured pose and follows the motion.</figcaption>
   </figure>
 </section>
 
 <section id="abstract">
   <h2>Abstract</h2>
-  <p class="lead">Autonomous suturing on the da Vinci Research Kit (dVRK) is learned from a few dozen teleoperated demonstrations and must keep working on the same robot across days. Policies that regress absolute end-effector poses fail this test: the camera-to-robot calibration changes between sessions and the policy inherits the offset in full. We present SurgeNet-ACT, a framework that encodes the camera views with SurgeNetXL, a frozen surgical foundation model, and predicts action chunks with an ACT policy as displacements and rotations in the tool frame of the measured pose, with recent measured poses as temporal context. We evaluate on the public SutureBot benchmark and on the SurgLab Benchmark, 84 bimanual demonstrations of needle pickup, needle throw and knot tying from three sessions. The frozen encoder lowers position error on every core phase of SutureBot's held-out tissue and cuts offset-corrected error on our robot from 4.5&nbsp;/&nbsp;3.8 to about 3.2&nbsp;mm; LoRA, partial fine-tuning and cross-dataset pre-training add nothing. Tool-frame actions make the policy insensitive to the calibration change between sessions, cutting raw error on an unseen session from 4.6 to 1.06&nbsp;mm and rotation error from 21 to 3.1 degrees. The final policy reaches 0.78&nbsp;/&nbsp;0.79&nbsp;mm and 3.0 degrees on two unseen sessions at 30&nbsp;Hz, and a per-demonstration protocol shows where offline evaluation stops ranking policies.</p>
+  <p class="lead">Autonomous suturing on the da Vinci Research Kit (dVRK) is learned from a few dozen teleoperated demonstrations and must keep working on the same robot across days. Policies that regress absolute end-effector poses fail this test: the camera-to-robot calibration changes between sessions and the policy inherits the offset in full. We present SurgeNet-ACT, a framework that encodes the camera views with SurgeNetXL, a frozen surgical foundation model, and predicts action chunks with an ACT policy as displacements and rotations in the tool frame of the measured pose, with recent measured poses as temporal context. We evaluate on the public SutureBot benchmark and on the dVRK-Sessions Benchmark, 84 bimanual demonstrations of needle pickup, needle throw and knot tying from three sessions. The frozen encoder lowers position error on every core phase of SutureBot's held-out tissue and cuts offset-corrected error on our robot from 4.5&nbsp;/&nbsp;3.8 to about 3.2&nbsp;mm; LoRA, partial fine-tuning and cross-dataset pre-training add nothing. Tool-frame actions make the policy insensitive to the calibration change between sessions, cutting raw error on an unseen session from 4.6 to 1.06&nbsp;mm and rotation error from 21 to 3.1 degrees. The final policy reaches 0.78&nbsp;/&nbsp;0.79&nbsp;mm and 3.0 degrees on two unseen sessions at 30&nbsp;Hz, and a per-demonstration protocol shows where offline evaluation stops ranking policies.</p>
 </section>
 
 <section id="framework">
@@ -133,7 +133,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
       </table></div>
     </div>
     <div class="card">
-      <h3>SurgLab Benchmark, unseen session</h3>
+      <h3>dVRK-Sessions Benchmark, unseen session</h3>
       <p class="small">First split: position error over the first 20 steps (0.67&nbsp;s), PSM1 / PSM2 in mm, raw and offset-corrected, and rotation error. Three seeds where given.</p>
       <div class="tablewrap"><table>
         <tr><th>Policy</th><th class="num">Raw</th><th class="num">Offset-corr.</th><th class="num">Rot.</th></tr>
@@ -152,8 +152,8 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
   </div>
 
   <figure>
-    <img src="static/images/qualitative_compare_v2.jpg" alt="Qualitative comparison on an unseen SurgLab session, one instant per phase">
-    <figcaption>SurgLab Benchmark, unseen session, one instant per phase (needle pickup, needle throw, knot tying): demonstrated chunk (blue), baseline ACT (orange), SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the session offset; SurgeNet-ACT starts on the measured pose.</figcaption>
+    <img src="static/images/qualitative_compare_v2.jpg" alt="Qualitative comparison on an unseen dVRK-Sessions session, one instant per phase">
+    <figcaption>dVRK-Sessions Benchmark, unseen session, one instant per phase (needle pickup, needle throw, knot tying): demonstrated chunk (blue), baseline ACT (orange), SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the session offset; SurgeNet-ACT starts on the measured pose.</figcaption>
   </figure>
   <figure>
     <img src="static/images/qualitative_suturebot_throw.jpg" alt="Qualitative comparison on SutureBot held-out tissue, needle throw">
@@ -168,26 +168,26 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
   <div class="grid">
     <figure>
       <video controls muted playsinline preload="metadata"><source src="static/videos/compare_1_needle_pickup_20260828-154118_sh_t10_short.mp4" type="video/mp4"></video>
-      <figcaption>SurgLab, unseen session: needle pickup.</figcaption>
+      <figcaption>dVRK-Sessions, unseen session: needle pickup.</figcaption>
     </figure>
     <figure>
       <video controls muted playsinline preload="metadata"><source src="static/videos/compare_3_knot_tying_20260828-154118_sh_t10.mp4" type="video/mp4"></video>
-      <figcaption>SurgLab, unseen session: knot tying.</figcaption>
+      <figcaption>dVRK-Sessions, unseen session: knot tying.</figcaption>
     </figure>
     <figure>
       <video controls muted playsinline preload="metadata"><source src="static/videos/compare_2_needle_throw_20260828-154118_sh_t10.mp4" type="video/mp4"></video>
-      <figcaption>SurgLab, unseen session: needle throw.</figcaption>
+      <figcaption>dVRK-Sessions, unseen session: needle throw.</figcaption>
     </figure>
     <figure>
       <video controls muted playsinline preload="metadata"><source src="static/videos/compare_2_needle_throw_20250428-222529-428484.mp4" type="video/mp4"></video>
       <figcaption>SutureBot, held-out tissue: needle throw.</figcaption>
     </figure>
   </div>
-  <p class="small">Videos of all six held-out SurgLab demonstrations will be added with the full release.</p>
+  <p class="small">Videos of all six held-out dVRK-Sessions demonstrations will be added with the full release.</p>
 </section>
 
 <section id="dataset">
-  <h2>SurgLab Benchmark</h2>
+  <h2>dVRK-Sessions Benchmark</h2>
   <p>Bimanual suturing demonstrations recorded on our dVRK with two patient-side manipulators, a stereo endoscope and one wrist camera per arm, all at 30&nbsp;Hz. Each frame stores the measured pose, the commanded setpoint and the jaw angle of each arm, the joint states of the arms, the endoscope and the setup joints, and the four images; kinematics are expressed in the left endoscope camera frame. Three recording sessions on two days let a policy be validated only on sessions it never saw.</p>
   <div class="stats">
     <div class="stat"><b>84</b><span>demonstrations (28 trials &times; 3 phases)</span></div>
@@ -209,10 +209,6 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
       <h3>Splits</h3>
       <p class="small">First split: 75 training / 6 validation demonstrations, one validation demonstration per phase from the training session and one from an unseen second-day session. Final split: 78 first-day training demonstrations, validation entirely on the two second-day sessions.</p>
     </div>
-  </div>
-  <div class="callout">
-    <b>Sample now.</b> One complete needle-pickup demonstration (126 frames, four views, kinematics csv in robot and camera frame, phase-command embeddings), 33&nbsp;MB:
-    <a href="static/samples/surglab_sample_needle_pickup_20260827-165004_sh_t6.zip">surglab_sample_needle_pickup_20260827-165004_sh_t6.zip</a>
   </div>
   <div class="callout pending">
     <b>Full release after acceptance.</b> The complete dataset (15&nbsp;GB), the splits, the evaluation protocol, the training code, checkpoints and the 30&nbsp;Hz deployment wrapper will be linked from this page.
