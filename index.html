@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>SurgeNet-ACT: A Foundation-Model Framework and Benchmark for Autonomous dVRK Suturing</title>
+<meta name="description" content="SurgeNet-ACT: frozen surgical foundation encoder + ACT policy with tool-frame action chunks for autonomous suturing on the dVRK, evaluated on the SutureBot and SurgLab benchmarks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root{--ink:#1c1f26;--muted:#5b616e;--line:#e3e6ec;--bg:#ffffff;--panel:#f6f7fa;--accent:#0f5f9a;--accent-2:#0b7a5b;--warn:#8a5a00;}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.6}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;line-height:1.2;margin:0 0 .5rem;text-wrap:balance}
+h1{font-size:clamp(1.7rem,3.4vw,2.6rem);font-weight:600}
+h2{font-size:1.55rem;font-weight:600;margin-top:0}
+h3{font-size:1.15rem;font-weight:600;margin-top:1.4rem}
+p{margin:.6rem 0 1rem}
+a{color:var(--accent)}
+.wrap{max-width:1020px;margin:0 auto;padding:0 20px}
+header{padding:56px 0 28px;text-align:center;border-bottom:1px solid var(--line)}
+.venue{display:inline-block;font-size:.85rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px}
+.authors{font-size:1.05rem;margin:14px 0 4px}
+.authors span{white-space:nowrap}
+.affil{color:var(--muted);font-size:.95rem}
+.note{color:var(--muted);font-size:.85rem}
+.buttons{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:24px 0 6px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:999px;border:1px solid var(--ink);background:var(--ink);color:#fff;text-decoration:none;font-weight:500;font-size:.95rem}
+.btn:hover{background:#000}
+.btn.secondary{background:#fff;color:var(--ink)}
+.btn.secondary:hover{background:var(--panel)}
+.btn.soon{background:#fff;color:var(--muted);border-color:var(--line);cursor:default}
+.btn .tag{font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:2px 7px;border-radius:999px;background:#fff3dc;color:var(--warn)}
+.btn svg{width:16px;height:16px;fill:currentColor}
+section{padding:40px 0;border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.lead{font-size:1.05rem}
+figure{margin:18px 0}
+figure img,video{width:100%;height:auto;display:block;border-radius:8px;border:1px solid var(--line);background:#000}
+figure img{background:#fff}
+figcaption{font-size:.9rem;color:var(--muted);margin-top:8px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.card h3{margin-top:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:14px 0 6px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.stat b{display:block;font-family:"Source Serif 4",Georgia,serif;font-size:1.45rem;font-weight:600;font-variant-numeric:tabular-nums}
+.stat span{font-size:.85rem;color:var(--muted)}
+.tablewrap{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;font-variant-numeric:tabular-nums}
+th,td{padding:8px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
+th{font-weight:600;background:var(--panel)}
+td.num,th.num{text-align:right}
+tr.best td{font-weight:600}
+.callout{border-left:4px solid var(--accent-2);background:#eef7f3;padding:12px 16px;border-radius:0 8px 8px 0;margin:16px 0}
+.callout.pending{border-left-color:var(--warn);background:#fff8ea}
+pre{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:14px 16px;overflow-x:auto;font-size:.86rem;line-height:1.5}
+footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
+.small{font-size:.9rem;color:var(--muted)}
+@media (max-width:640px){header{padding-top:36px}th,td{padding:6px 8px}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="venue">ICRA 2027 &middot; under review</div>
+    <h1>SurgeNet-ACT: A Foundation-Model Framework and Benchmark for Autonomous dVRK Suturing</h1>
+    <p class="authors">
+      <span>Ihsan Ullah<sup>*</sup></span>, &nbsp;
+      <span>Sihyeong Park<sup>*</sup></span>, &nbsp;
+      <span>Jimin Kim</span>, &nbsp;
+      <span>Minho Hwang<sup>&dagger;</sup></span>
+    </p>
+    <p class="affil">Robotics and Mechatronics Engineering, DGIST, Daegu, Republic of Korea</p>
+    <p class="note"><sup>*</sup>Equal contribution &nbsp;&middot;&nbsp; <sup>&dagger;</sup>Corresponding author</p>
+
+    <div class="buttons">
+      <a class="btn" href="static/paper/SurgeNet_ACT_ICRA2027.pdf">
+        <svg viewBox="0 0 24 24"><path d="M6 2h8l6 6v14H6zM13 3.5V9h5.5zM8 13h8v1.5H8zm0 3h8v1.5H8z"/></svg>Paper (PDF)</a>
+      <a class="btn secondary" href="#videos">
+        <svg viewBox="0 0 24 24"><path d="M4 5h12a2 2 0 0 1 2 2v2.4l4-2.4v10l-4-2.4V17a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z"/></svg>Videos</a>
+      <a class="btn secondary" href="#dataset">
+        <svg viewBox="0 0 24 24"><path d="M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zm-8 5.5c0 1.7 3.6 3 8 3s8-1.3 8-3V11c0 1.7-3.6 3-8 3s-8-1.3-8-3zm0 5c0 1.7 3.6 3 8 3s8-1.3 8-3V16c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/></svg>Dataset sample</a>
+      <span class="btn soon" title="Full code release after acceptance">
+        <svg viewBox="0 0 24 24"><path d="M9.4 16.6 4.8 12l4.6-4.6L8 6l-6 6 6 6zm5.2 0 4.6-4.6-4.6-4.6L16 6l6 6-6 6z"/></svg>Code <span class="tag">after acceptance</span></span>
+      <span class="btn soon" title="Full dataset release after acceptance">
+        <svg viewBox="0 0 24 24"><path d="M12 3c4.4 0 8 1.3 8 3s-3.6 3-8 3-8-1.3-8-3 3.6-3 8-3zm-8 5.5c0 1.7 3.6 3 8 3s8-1.3 8-3V11c0 1.7-3.6 3-8 3s-8-1.3-8-3zm0 5c0 1.7 3.6 3 8 3s8-1.3 8-3V16c0 1.7-3.6 3-8 3s-8-1.3-8-3z"/></svg>Full dataset <span class="tag">after acceptance</span></span>
+      <a class="btn secondary" href="#bibtex">BibTeX</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="teaser">
+  <figure>
+    <video controls muted playsinline preload="metadata" poster="static/images/qualitative_compare_v2.jpg">
+      <source src="static/videos/compare_2_needle_throw_20260828-154118_sh_t10.mp4" type="video/mp4">
+    </video>
+    <figcaption>Needle throw on a SurgLab session never seen in training. Both policies are run frame by frame through their inference code on the same recording: demonstrated chunk (blue), baseline ACT (orange) and SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the offset of the new session; SurgeNet-ACT starts on the measured pose and follows the motion.</figcaption>
+  </figure>
+</section>
+
+<section id="abstract">
+  <h2>Abstract</h2>
+  <p class="lead">Autonomous suturing on the da Vinci Research Kit (dVRK) is learned from a few dozen teleoperated demonstrations and must keep working on the same robot across days. Policies that regress absolute end-effector poses fail this test: the camera-to-robot calibration changes between sessions and the policy inherits the offset in full. We present SurgeNet-ACT, a framework that encodes the camera views with SurgeNetXL, a frozen surgical foundation model, and predicts action chunks with an ACT policy as displacements and rotations in the tool frame of the measured pose, with recent measured poses as temporal context. We evaluate on the public SutureBot benchmark and on the SurgLab Benchmark, 84 bimanual demonstrations of needle pickup, needle throw and knot tying from three sessions. The frozen encoder lowers position error on every core phase of SutureBot's held-out tissue and cuts offset-corrected error on our robot from 4.5&nbsp;/&nbsp;3.8 to about 3.2&nbsp;mm; LoRA, partial fine-tuning and cross-dataset pre-training add nothing. Tool-frame actions make the policy insensitive to the calibration change between sessions, cutting raw error on an unseen session from 4.6 to 1.06&nbsp;mm and rotation error from 21 to 3.1 degrees. The final policy reaches 0.78&nbsp;/&nbsp;0.79&nbsp;mm and 3.0 degrees on two unseen sessions at 30&nbsp;Hz, and a per-demonstration protocol shows where offline evaluation stops ranking policies.</p>
+</section>
+
+<section id="framework">
+  <h2>Framework</h2>
+  <p>Four stages. A frozen SurgeNetXL encoder (DINOv3 ViT-B/16, pre-trained on 4.7 million surgical frames) turns each camera view into a grid of patch tokens. The tokens, the phase command, the jaw angles, a CVAE latent and the temporal-context tokens form the memory of an ACT transformer encoder. An ACT decoder reads out the chunk in the tool frame of the measured pose. The chunk is composed with the measured pose into absolute setpoints for the dVRK. The measured pose enters only at the last stage, and the history tokens are built from measured poses, never from the policy's own outputs.</p>
+  <figure>
+    <img src="static/images/framework.png" alt="SurgeNet-ACT framework diagram: data processing, encoders, policy training, losses">
+    <figcaption>SurgeNet-ACT. Blue: frozen (SurgeNetXL, DistilBERT). Orange: trained (projections, ACT encoder-decoder, action head). Dashed: training only. The pose history bank on the right is filled with the dVRK's measured poses at each control step.</figcaption>
+  </figure>
+</section>
+
+<section id="results">
+  <h2>Results</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>SutureBot Benchmark, held-out tissue</h3>
+      <p class="small">Per-axis L1 error of the predicted 60-step chunk on tissue sample 10 (12 demonstrations, every frame), PSM1 / PSM2 in mm. Same ACT head, different encoder.</p>
+      <div class="tablewrap"><table>
+        <tr><th>Phase</th><th class="num">ACT (EfficientNet-B3)</th><th class="num">SurgeNet-ACT</th></tr>
+        <tr><td>Needle pickup</td><td class="num">0.32 / 0.31</td><td class="num"><b>0.30 / 0.27</b></td></tr>
+        <tr><td>Needle throw</td><td class="num">0.71 / 0.28</td><td class="num"><b>0.55 / 0.20</b></td></tr>
+        <tr><td>Knot tying</td><td class="num">0.42 / 0.42</td><td class="num"><b>0.36 / 0.34</b></td></tr>
+        <tr><td>All phases (incl. recovery)</td><td class="num">1.16 / 0.84</td><td class="num"><b>1.10 / 0.78</b></td></tr>
+      </table></div>
+    </div>
+    <div class="card">
+      <h3>SurgLab Benchmark, unseen session</h3>
+      <p class="small">First split: position error over the first 20 steps (0.67&nbsp;s), PSM1 / PSM2 in mm, raw and offset-corrected, and rotation error. Three seeds where given.</p>
+      <div class="tablewrap"><table>
+        <tr><th>Policy</th><th class="num">Raw</th><th class="num">Offset-corr.</th><th class="num">Rot.</th></tr>
+        <tr><td>ACT (ResNet-18, absolute)</td><td class="num">6.74 / 5.05</td><td class="num">4.45 / 3.84</td><td class="num">23.5&deg;</td></tr>
+        <tr><td>SurgeNet-ACT (absolute)</td><td class="num">4.61 / 4.41</td><td class="num">3.22 / 3.29</td><td class="num">21.1&deg;</td></tr>
+        <tr class="best"><td>SurgeNet-ACT (tool-frame)</td><td class="num">1.06 / 1.07</td><td class="num">1.04 / 1.03</td><td class="num">3.1&deg;</td></tr>
+      </table></div>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><b>0.78 / 0.79 mm</b><span>final policy, two unseen sessions, 20-step horizon (PSM1 / PSM2)</span></div>
+    <div class="stat"><b>3.0&deg;</b><span>rotation error at the same horizon</span></div>
+    <div class="stat"><b>30 Hz</b><span>one GPU, 33.6 ms per call</span></div>
+    <div class="stat"><b>78</b><span>training demonstrations on our dVRK</span></div>
+  </div>
+
+  <figure>
+    <img src="static/images/qualitative_compare_v2.jpg" alt="Qualitative comparison on an unseen SurgLab session, one instant per phase">
+    <figcaption>SurgLab Benchmark, unseen session, one instant per phase (needle pickup, needle throw, knot tying): demonstrated chunk (blue), baseline ACT (orange), SurgeNet-ACT (green), zoomed to &plusmn;8&nbsp;mm around each arm's current pose. The baseline is displaced by the session offset; SurgeNet-ACT starts on the measured pose.</figcaption>
+  </figure>
+  <figure>
+    <img src="static/images/qualitative_suturebot_throw.jpg" alt="Qualitative comparison on SutureBot held-out tissue, needle throw">
+    <figcaption>SutureBot Benchmark, held-out tissue, needle throw. With one fixed recording setup both policies start on the current pose and differ only in the shape of the motion; the jaw-angle trace is shown over the 60-step chunk.</figcaption>
+  </figure>
+  <p class="small">Full tables, ablations (adaptation, history length, chunk length, policy heads) and the per-demonstration protocol are in the paper.</p>
+</section>
+
+<section id="videos">
+  <h2>Videos</h2>
+  <p>Baseline ACT and the deployed SurgeNet-ACT policy run frame by frame on held-out recordings. Left: camera view with the demonstrated chunk (blue), baseline (orange) and ours (green). Right: position error over time for both arms.</p>
+  <div class="grid">
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_1_needle_pickup_20260828-154118_sh_t10_short.mp4" type="video/mp4"></video>
+      <figcaption>SurgLab, unseen session: needle pickup.</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_3_knot_tying_20260828-154118_sh_t10.mp4" type="video/mp4"></video>
+      <figcaption>SurgLab, unseen session: knot tying.</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_2_needle_throw_20260828-154118_sh_t10.mp4" type="video/mp4"></video>
+      <figcaption>SurgLab, unseen session: needle throw.</figcaption>
+    </figure>
+    <figure>
+      <video controls muted playsinline preload="metadata"><source src="static/videos/compare_2_needle_throw_20250428-222529-428484.mp4" type="video/mp4"></video>
+      <figcaption>SutureBot, held-out tissue: needle throw.</figcaption>
+    </figure>
+  </div>
+  <p class="small">Videos of all six held-out SurgLab demonstrations will be added with the full release.</p>
+</section>
+
+<section id="dataset">
+  <h2>SurgLab Benchmark</h2>
+  <p>Bimanual suturing demonstrations recorded on our dVRK with two patient-side manipulators, a stereo endoscope and one wrist camera per arm, all at 30&nbsp;Hz. Each frame stores the measured pose, the commanded setpoint and the jaw angle of each arm, the joint states of the arms, the endoscope and the setup joints, and the four images; kinematics are expressed in the left endoscope camera frame. Three recording sessions on two days let a policy be validated only on sessions it never saw.</p>
+  <div class="stats">
+    <div class="stat"><b>84</b><span>demonstrations (28 trials &times; 3 phases)</span></div>
+    <div class="stat"><b>50,502</b><span>frames, 28.0 minutes at 30 Hz</span></div>
+    <div class="stat"><b>4 + 1</b><span>views: stereo endoscope, two wrist cameras, RGB-D (unused)</span></div>
+    <div class="stat"><b>3</b><span>sessions, 4 operators</span></div>
+    <div class="stat"><b>289</b><span>sub-task clips with 11 text commands</span></div>
+  </div>
+  <figure>
+    <img src="static/images/dataset_views.jpg" alt="One frame from the four camera views: left endoscope, right endoscope, PSM1 wrist camera, PSM2 wrist camera">
+    <figcaption>One frame of a needle-throw demonstration from the four views the policy uses: left endoscope (960&times;540), right endoscope, PSM1 wrist camera (640&times;480), PSM2 wrist camera.</figcaption>
+  </figure>
+  <div class="grid">
+    <div class="card">
+      <h3>Annotations</h3>
+      <p class="small">Phase command per demonstration (needle pickup, needle throw, knot tying); clicked insertion and exit points for every needle-throw demonstration; a sub-task annotation that cuts the same demonstrations into 289 clips of 11 sub-tasks with text commands.</p>
+    </div>
+    <div class="card">
+      <h3>Splits</h3>
+      <p class="small">First split: 75 training / 6 validation demonstrations, one validation demonstration per phase from the training session and one from an unseen second-day session. Final split: 78 first-day training demonstrations, validation entirely on the two second-day sessions.</p>
+    </div>
+  </div>
+  <div class="callout">
+    <b>Sample now.</b> One complete needle-pickup demonstration (126 frames, four views, kinematics csv in robot and camera frame, phase-command embeddings), 33&nbsp;MB:
+    <a href="static/samples/surglab_sample_needle_pickup_20260827-165004_sh_t6.zip">surglab_sample_needle_pickup_20260827-165004_sh_t6.zip</a>
+  </div>
+  <div class="callout pending">
+    <b>Full release after acceptance.</b> The complete dataset (15&nbsp;GB), the splits, the evaluation protocol, the training code, checkpoints and the 30&nbsp;Hz deployment wrapper will be linked from this page.
+  </div>
+  <h3>Folder layout of a demonstration</h3>
+<pre>2_needle_throw/20260827-163621_sh_t1/
+  ee_csv.csv          kinematics at 30 Hz, robot frame (149 columns)
+  ee_csv_refer.csv    same rows re-expressed in the left endoscope camera frame
+  ee_csv_refer.json   per-arm extrinsics used for the re-expression
+  clicked_point.csv   needle insertion and exit points (pixels, left image); throw only
+  left_img_dir/  right_img_dir/     stereo endoscope, 960x540 JPEG
+  endo_psm1/  endo_psm2/            wrist cameras, 640x480 JPEG
+  rgbd_color/  rgbd_depth/          RealSense D455, 848x480 (not used by the policies)</pre>
+</section>
+
+<section id="bibtex">
+  <h2>Citation</h2>
+<pre>@inproceedings{ullah2027surgenetact,
+  title     = {{SurgeNet-ACT}: A Foundation-Model Framework and Benchmark for Autonomous {dVRK} Suturing},
+  author    = {Ullah, Ihsan and Park, Sihyeong and Kim, Jimin and Hwang, Minho},
+  booktitle = {IEEE International Conference on Robotics and Automation (ICRA)},
+  year      = {2027},
+  note      = {under review}
+}</pre>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    Robotics and Mechatronics Engineering, DGIST &middot; Contact: ihsanullah736@gmail.com<br>
+    SutureBot data &copy; its authors (<a href="https://suturebot.github.io/">suturebot.github.io</a>). Page last updated September 2026.
+  </div>
+</footer>
+
+</body>
+</html>
