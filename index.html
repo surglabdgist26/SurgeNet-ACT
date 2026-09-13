@@ -41,6 +41,8 @@ figure{margin:18px 0}
 figure img,video{width:100%;height:auto;display:block;border-radius:8px;border:1px solid var(--line);background:#000}
 figure img{background:#fff}
 figcaption{font-size:.9rem;color:var(--muted);margin-top:8px;line-height:1.5}
+.videostack{display:grid;grid-template-columns:1fr;gap:26px}
+.videostack figure{margin:0}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
 .card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
 .card h3{margin-top:0}
@@ -164,7 +166,7 @@ footer{padding:28px 0 48px;color:var(--muted);font-size:.9rem;text-align:center}
 <section id="videos">
   <h2>Videos</h2>
   <p>Baseline ACT and the deployed SurgeNet-ACT policy run frame by frame on held-out recordings. Left: camera view with the demonstrated chunk (blue), baseline (orange) and ours (green). Right: position error over time for both arms.</p>
-  <div class="grid">
+  <div class="videostack">
     <figure>
       <video controls muted playsinline preload="metadata"><source src="static/videos/compare_1_needle_pickup_20260828-154118_sh_t10_short.mp4" type="video/mp4"></video>
       <figcaption>dVRK-Sessions, unseen session: needle pickup.</figcaption>
